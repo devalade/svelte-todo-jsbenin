@@ -1,5 +1,6 @@
 <script>
   import CustomForm from './components/CustomForm.svelte';
+  import EditForm from './components/EditForm.svelte';
   import TaskList from './components/TaskList.svelte';
   let tasks = [];
 
@@ -18,6 +19,9 @@
     tasks = tasks.map((value ) => value.id == task.id ? {...value, completed: !value.completed} : value );
     console.log(tasks)
   }
+  const onUpdate = (task, text) => {
+    tasks = tasks.map((value ) => value.id == task.id ? {...value, name: text} : value );
+  }
 
 </script>
 
@@ -27,7 +31,7 @@
   </header>
   <CustomForm on:add-task={addTask} />
   {#if tasks.length > 0}
-    <TaskList tasks={tasks} onDelete={onDelete} onComplete={onComplete} />
+    <TaskList tasks={tasks} onDelete={onDelete} onComplete={onComplete} onUpdate={onUpdate} />
   {/if}
 </main>
 

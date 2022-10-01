@@ -1,14 +1,28 @@
 <script>
    import { fade, scale } from 'svelte/transition'
+  import EditForm from './EditForm.svelte';
   export let task;
   export let onDelete;
   export let onComplete;
+  export let onUpdate;
+
+
+  let edit = false;
+
+  const hideEditForm = () => {
+    edit = false;
+  }
 
 </script>
 
-<li in:scale out:fade="{{ duration: 500 }}" class="task">
+
+
+<li in:scale out:fade="{{ duration: 500 }}" class:task="{edit === false}">
+  {#if !edit}
+    
+
   <div class="task-group">
-    <input type="checkbox" name={task.name} checked={task.checked} id={task.id} on:click={() => onComplete(task)} class="checkbox">
+    <input type="checkbox" name={task.name} checked={task.checked} id={task.id} on:click={() => onComplete(task)} class="checkbox" >
     <label for={task.id} class="label">
       {task.name}
       <p class="checkmark">
@@ -20,7 +34,7 @@
     </label>
   </div>
   <div class="task-group">
-    <button class="btn">
+    <button class="btn" on:click={() => edit = !edit  }>
       <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="28" height="28" viewBox="0 0 24 24" stroke-width="2" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
         <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -38,6 +52,13 @@
       </svg>
     </button>
   </div>
+
+  {:else}
+  <EditForm task={task} onUpdate={onUpdate} hideEditForm={hideEditForm} />
+
+  {/if }
+    
+
 </li>
 
 <style>

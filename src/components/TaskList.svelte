@@ -5,12 +5,13 @@
   export let tasks = []; 
   export let onDelete;
   export let onComplete;
+  export let onUpdate;
 
 </script>
 
 <div class="tasks">
   {#each tasks  as task (task.id) }
-    <TaskItem task={task} onDelete={onDelete} onComplete={onComplete} />
+    <TaskItem task={task} onDelete={onDelete} onComplete={onComplete} onUpdate={onUpdate} />
   {/each }
 </div>
 

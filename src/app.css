@@ -18,7 +18,7 @@ label {
 }
 
 :root {
-  --_hue: 245;
+  --_hue: 200;
   --_size: 1.8rem;
   --_radius: 0.2em;
   --_tspeed_fast: 180ms;
