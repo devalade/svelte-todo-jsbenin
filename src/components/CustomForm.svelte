@@ -1,13 +1,13 @@
 <script>
     import {createEventDispatcher} from 'svelte';
 
-    let task = '';
+    let text = '';
     let btnDisabled = true;
 
     const dispatch = createEventDispatcher();
 
      const handleInput = () => {
-        if(task.trim().length < 1) {
+        if(text.trim().length < 1) {
             btnDisabled = true
         } else {
             btnDisabled = false
@@ -15,8 +15,8 @@
     }
 
     const handleSubmit = () => {
-        dispatch('add-task', task);
-        task = '';
+        dispatch('add-task', {id:Date.now(), name: text, completed: false});
+        text = '';
     }
 
 </script>
@@ -30,8 +30,8 @@
                 required 
                 autofocus 
                 maxlength={60}
-                on:input="{handleInput}"
-                bind:value="{task}"
+                on:input={handleInput}
+                bind:value={text}
             >
             <label for="task" class="label">Renseigner une tâche</label>
         </div>
